@@ -1,0 +1,932 @@
+Yii2.0 basic 版
+
+yii 官方网站：http://www.yiiframework.com/
+
+一、安装：
+
+1、下载地址：http://www.yiichina.com/download
+
+从归档文件安装：Yii2的基本应用程序模板
+
+2、参数修改：basic/config/web.php  将 cookieValidationKey   任意填写一个值
+
+3、访问主页：http://localhost/basic/web/index.php
+
+
+二、目录结构
+
+1、controllers/			:	控制器类
+2、models/				:	模型类
+3、views/				:	视图文件
+4、commands				:	控制台命令类
+5、tests				:	测试相关的文件
+6、assets				:	资源文件
+7、config/				:	应用配置及其它配置
+8、web/					:	web应用根目录，包含web入口文件
+8.1、assets/			:	资源文件（js 和 css）
+8.2、index.php			:	应用入口文件
+9、runtime/				:	运行时产生的文件，例如日志和缓存文件
+10、vendor/				:	Yii自身及第三方拓展
+10、根目录下的yii文件	：	Yii 控制台命令执行脚本
+
+
+三、配置 web 服务器，隐藏 basic/web
+1、先在 apache 的 httpd.conf 中将虚拟路径的注释去掉
+	Include conf/extra/httpd-vhosts.conf
+	
+2、在httpd-vhosts.conf 中做如下配置：
+<VirtualHost *:80>
+	ServerName www.learnyii.com			
+	DocumentRoot e:/www/basic/web
+	<Directory  "e:/www/basic/web/">
+		Options +Indexes +Includes +FollowSymLinks +MultiViews
+		AllowOverride All
+		Require local
+
+		# 开启 mod_rewrite 用于美化 url 功能的支持
+		RewriteEngine on
+	
+		# 如果请求的是真实存在的文件或目录，直接访问
+		RewriteCond %{REQUEST_FILENAME} !f
+		RewriteCond %{REQUEST_FILENAME} !d
+	
+		# 如果请求的不是真实的文件或目录，分发请求至 index.php
+		RewriteRule . index.php
+	</Directory>
+</VirtualHost>
+
+3、在 hosts 文件（C:\Windows\System32\drivers\etc\hosts）中配置如下：
+127.0.0.1			www.learnyii.com
+
+
+
+四、入口文件（web/index.php）
+
+1、defined('YII_DEBUG') or define('YII_DEBUG', true);          	// 标识应用是否应用在调试模式
+2、defined('YII_ENV') or define('YII_ENV', 'dev');             	// 标识应用运行的环境
+3、(new yii\web\Application($config))->run();  				   	// 应用主体 ： 管理 Yii 应用系统整体结构和生命周期的对象
+																// 可以用Yii::$qpp来访问
+																// $config 给应用主体这个对象的属性进行初始化赋值
+																// $config 是从web.php中加载进来的
+4、1使用实例：
+	a、Yii::$app->language
+	b、Yii::$app->charset
+	
+4.2、配置应用主体
+	位置：在 config/web.php 中进行配置
+	eg. language 默认为  en-US，配置为   language => 'zh-CN',
+	
+	
+	
+五、config
+$config = [
+    'id' => 'basic',                 	// 区分其它应用主体的唯一标识 id
+    'basePath' => dirname(__DIR__),  	// 指定该应用的根目录
+    'language' => 'zh-CN',
+    'defaultRoute' => 'post/index' 		// 如何加载控制器 ，缺损的路由，当 url 中没有传 r 的时候可以打开的路由
+    'components' => []                	// 注册多个在其它地方使用的应用组建
+	]
+	
+	
+	
+	
+六、controller
+ *  1、控制器
+ *      1.1、 MVC 结构中的 c 部分
+ *      1.2、 从 yii\base\Controller 继承而来
+ *            具体来说，是从模型兑现中拿到需要的数据，然后调用视图模板文件来渲染这些数据，然后生成输出响应信息
+ *
+ *  2、组成
+ *      2.1、控制器主要有动作组成
+ *      2.2、动作是控制器类中的方法
+ *      2.3、一个动作对应一个页面
+ *
+ *
+ *  3、render()
+ *	  查看方法：从类参考手册中的yii\web\controller\所有方法中查看render()方法
+ *    public string render($view,$params=[])
+ *    $view 指视图名
+ *    $params 是传给视图的数据
+ *    返回的是字符串，就是渲染好的结果
+ *    还有视图或文件不存的时候抛出的异常
+
+ 4、控制器中的方法：
+ 
+ 4.1 Yii 使用 action 前缀区分普通方法和操作。action 后面的操作被映射为操作的 ID
+ 
+ 4.2 若方法名有多个单词组成，那么 视图名由连字符连接。
+    public function actionSayHello($message='Hello')
+    {
+        return $this->render('say-hello',['message'=>$message]);
+    }
+ 
+ 5、yii\web\Request::post() 方法负责收集用户提交的数据
+     public function actionEntry(){
+	 
+        $model = new EntryForm;
+		
+        if($model->load(Yii::$app->request->post())&&$model->validate()){
+		
+            return $this->render('entry-confirm',['model'=>$model]);
+			
+        }else{
+		
+            return $this->render('entry',['model'=>$model]);
+        }
+    }
+	
+	Yii::$app 代表应用实例，是一个可全局访问的单例，能提供 request、response、db 等特定功能的组件
+ 
+七、view
+1、布局文件
+
+1.1布局是一种特殊的视图，代表多个视图的公共部分，默认使用 views/layouts/main.php
+
+1.2、如何创建布局
+   a、布局也是视图，它可以像普通视图一样创建
+   b、布局默认存储在 @app\view\layouts 下面
+
+1.3、如何变幻布局
+  a、默认会使用 @app\view\layouts\main.php布局文件
+  b、更换整个类中的布局 : public $layout = 'dcr';
+  c、更换某一个页面的布局 : 在方法中添加 $this -> layout = 'dcr';
+  d、如果一个页面不需要任何布局，只需要在方法中设置 $this->layout=false;
+
+1.4、布局文件的数据
+  a、两个预定义变量 $this 和 $content
+  b、和视图中的 $this 一样，$this 指向 yii\web\View 的实例
+  d、$content 就是控制器渲染出来的结果，每一页的结果都不同。
+
+1.5、布局文件的结构
+<?php $this->beginPage() ?>			在布局的开始处调用 $this 指向 yii\web\view 来管理和渲染这个视图文件，用来标识一个html文件的开始
+<html>
+	<head>
+	<?php $this->header() ?>		在 head 标签处调用，标识html文件头部的位置
+	</head>
+	<body>
+	<?php $this->beginBody() ?>		在 body 的开始处调用，标识 html 文件 body 部分的起始位置
+	<?php $this->endBody() ?>		在 body 的起始处调用，标识 html 文件 body 部分的结束位置
+	</body>
+</html>
+<?php $this->endPage() ?>			在布局的结尾处调用，用来标识一个html文件的结束
+
+1.6、使用 <?=Html::encode($variable) ?>  可以防止被恶意JavaScript xss(跨站脚本)攻击，就是使用htmlspecialchars()将预定义字符转换为 html 实体
+	
+	htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE,'UTF-8', true);
+
+	ENT_QUOTES - 编码双引号和单引号
+	ENT_SUBSTITUTE - 把无效的编码替代成一个指定的带有 Unicode 替代字符 U+FFFD（UTF-8）或者 &#FFFD; 的字符，而不是返回一个空的字符串。
+
+1.7、render 在 view 中的应用：
+
+	<?= $this->render('_form', [		
+	
+        'model' => $model,
+		
+    ]) ?>
+
+	_form 是同目录下的一个文件，专门用来展示表单
+	
+	model  是从数据库查询的对象数组
+	
+	
+	
+八、model
+ *  1、什么是模型
+ *  1.1、模型是 MVC 模式中的一部分，是表现业务数据、规则和逻辑的对象
+ *  1.2、可通过继承 yii\base\Model 或它的子类(activeRecord)来定义模型类，基类 yii\base\Model 支持许多实用的特性
+ *
+ *  Model 类也是更多高级模型例如 Active Record 活动记录的基类。
+ *
+ *  2、yii\base\Model 支持以下实用特性：
+ *
+ *  2.1属性 ： 表现业务数据，可以像普通类属性或数组一样被访问 （e.g. public $name）
+ *
+ *  2.2属性标签 ：指定属性显示出来的标签 （在 models\ContactForm 类，function attributeLabels(){} 方法里面定义）
+    public function attributeLabels()
+    {
+        return [
+            'verifyCode' => 'Verification Code',    // 所有的verifyCode 属性在页面中都显示为 Verification Code
+            'name' => '姓名',                       // 所有的 name 属性在也面中都显示为 “姓名” 两个字
+        ];
+     }
+ *
+ *  2.3块儿赋值 ：支持一步给许多属性赋值；
+ *
+ *  2.4验证规则 ：确保数据数据符合所申明的验证规则（在 models\ContactForm 类，function rules(){} 方法里面定义）
+    public function rules()
+    {
+        return [
+            [['name', 'email', 'subject', 'body'], 'required'],     // name, email, subject 和 body are 都是必填字段
+            ['name','integer'],                                     // name 必须是整数
+            ['name','compare','compareValue'=>30,'operator'=>'>='], // name >=30
+            ['email', 'email'],                                     // email 必须是一个合法的邮箱地址
+            ['verifyCode', 'captcha'],                              // 验证码必须填写正确
+        ];
+    }
+
+	验证时采用 yii\base\Model::validate() 方法触发数据验证，如果有数据验证失败，将自动把 yii\base\Model::hasErrors() 属性置为 true,
+	可以使用 yii\base\Model::getErrors() 来查看错误详情。
+	e.g.
+	<?php 
+	
+	$model = new EntryForm();
+	
+	$model -> name = 'Carroll';
+	$model -> email = 'wrong';
+	
+	if($model -> validate()){
+		
+		// 验证成功
+	}else{
+	
+		// 验证失败
+		// 使用 $error = $model -> getErrors(); var_dump($errors); 获取错误详情。
+	}
+	
+2.5数据导出 ：允许模型数据导出为自定义格式的数组
+ 
+3、yii\base\Model 用于普通模型类的父类并与数据表无关
+   yii\base\activeRecord 用于普通模型类的父类并与数据表有关
+   yii\base\activeRecord 也是继承 yii\base\Model ,但是增加了数据库处理
+ 
+4、表与表之间的关联（多对一或者一对一，例如文章对应文章状态，使用 hasOne() ）   
+	/**
+     * @return \yii\db\ActiveQuery
+     * 建立文章类和文章状态类之间的联系，建立起这种联系后，相当于原来的 Post 类就多了一个属性 status0,这个属性值是文章状态类的对象
+     * 获取状态名可以使用：$thePost->status0->name 来获取
+     */
+    public function getStatus0()
+    {
+        return $this->hasOne(Poststatus::className(), ['id' => 'status']);    // Poststatus::className 是文章状态表的表名，['id' => 'status']是关联的条件
+    }
+
+5、表与表之间的关联（一对多，例如文章对应文章评论，使用 hasMany() ） 
+
+    public function getStatus0()
+    {
+        return $this->hasOne(Commentstatus::className(), ['id' => 'status']);
+    }
+
+	拿到所有的评论就是用 $thisPost -> comments  （所有的评论组成一个对象数组）
+ 
+ 
+九、表单
+ 
+	1、表单的创建
+	在 yii 中主要通过 yii\widgets\ActiveForm 类来创建表单
+
+	1.1、ActiveForm::begin() 不仅创建了一个表单实例，同时也标志着表单的开始。
+
+	1.2、放在 ActiveForm::begin() 和 ActiveForm::end()之间的所有内容都被包裹在 html 的 from 标签中
+
+	1.3、中间是通过调用 ActiveForm::field() 方法来创建一个 ActiveForm 实例，这个实例会创建表单元素与元素的标签，
+	以及对应的 js 验证
+
+	1.4、ActiveField 有一个对应的模型和属性， input 输入框的 name 属性会自动的根据属性名来创建，同时，还会用属性的验证规则来验证用户输入的数据
+
+	e.g. <?= $form->field($model,'name')->textInput(['autofocus' => true]) ?>
+	
+	解析后的标签为：<input type="text" id="contactform-name" class="form-control" name="ContactForm[name]" autofocus />
+	
+	还会自动添加 js 验证，代码如下：
+	
+	jQuery('#contactform-name').yiiActiveForm([{
+	
+	"id" : "contactform-name",
+	
+	"name" : "name",
+	
+	"container" : ".field-contactform-name",
+	
+	"input" : "#contactform-name",
+	
+	"error" : ".help-block.help-block-error",
+	
+	"validate" : function(attribute,value,messages,deferred,$form){
+	
+		yii.validation.required(value,messages,{
+		
+			"messages" : "Name 不能为空",
+			
+		});
+	}
+	}])
+	 
+2、ActiveField 对象的使用（参考类参考手册 yii\widgets\ActiveField 中的 methods）
+
+<?= $form->field($model,'password') -> passwordInput() ?>     <!--密码输入框-->
+
+<?= $form->field($model,'username') -> textInput() -> hint('Please enter your name')->label('Name') ?>  <!--输入框增加了一个提示标签-->
+
+<?= $form->field($model,'email') -> input('email') ?>     <!--创建一个 html5 的邮箱输入框-->
+
+ <?= $form -> field($model,'name')->label('姓名') ?>	<!-- 自定义输入框的显示标签名 -->
+
+3、额外标签的处理,即与模型对象没有关系的额外 HTML 标签（e.g. submit，button, p 等 ）
+
+使用 yii\helpers\Html 帮助类中的方法来添加到表单中
+
+e.g.  纯文本 ：<?= '<p class="username">'.$user->name.'</p>' ?>
+
+Html 帮助类：<?= Html::tag('p',Html::encode($user->name),['class'=>'username']) ?>
+
+
+4、块儿赋值
+
+ 4.1、 input 中的 name ,实际是以对象名来命名的一个数组，数组的键对应模型的属性 （e.g. name="ContactForm[name]"）
+
+ 4.2、 model 执行 load() 方法，就是对每个属性执行这样一句赋值：
+     $model -> name = isset($ContactForm['name']) ? $ContactForm[name] : null;
+
+     块赋值就是用这一句代码将用户所有的输入数据填充到模型中去
+
+4、dropDownList 的用法：
+
+   <?= $form->field($model, 'status')->dropDownList($allStatus,['prompt'=>'请选择状态']) ?>
+ 
+	$allStatus 是一个 [1=>'已发布'] 形式的关联数组
+ 
+ 
+ 
+ 
+十、数据库
+
+10.1、在 config/db.php 里面配置数据账号和密码。
+
+10.2、数据查询
+
+	// 获取 country 表的所有行并以 name 排序
+	$countries = Country::find() -> orderBy('name') -> all();
+
+	// 获取主键为 5 的行
+	$country = Country::findOne(5);
+	
+	
+	
+十一、分页
+
+11.1 使用分页需要在 controller	中 use yii\data\Pagination;
+				 在 view		中 use yii\widgets\LinkPager;
+				 
+	使用方法：
+	在 controller 中：
+ 
+ 		$pagination = new Pagination([
+		
+			'defaultPageSize' => 5,
+			
+			'totalCount' => $query -> count(),
+		]);
+		
+		return $this -> render('index',['pagination'=>$pagination]);
+		
+	在 view 中：
+	<?= LinkPager::widget(['pagination' => $pagination])?>
+ 
+ 
+ 
+ 
+十二、Gii 的使用
+ 
+ 12.1、配置 gii 的位置：
+ 
+	   在 config/web.php 里面：
+	   
+		if (YII_ENV_DEV) {
+		
+			$config['bootstrap'][] = 'gii';
+			
+			$config['modules']['gii'] = 'yii\gii\Module';
+		}
+	 
+ 12.2、开启 gii
+ 
+		在入口文件 web/index.php 里面写上如下代码：
+		
+		defined('YII_DEBUG') or define('YII_DEBUG', true);			// 应用处于开发模式
+		
+ 12.3、访问 gii
+ 
+		http://hostname/index.php?r=gii
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Yii2.0 advanced 版
+
+一、目录结构
+1、backend 和 frontend	:	前后台入口，相当于是一个单独的Basic应用，有自己的 mvc 目录、配置文件目录、入口文件目录
+
+2、console				:	控制台入口用来控制台执行的程序，比如放一些定时执行的程序，或者需要在更底层的操作系统上运行的功能
+
+3、common				:	是一个共用的地方，比如一些前后台公用的模型文件就可以放在这里面
+
+4、environments			:	放环境的配置文件	
+
+
+
+二、数据库和 ActiveRecord 类：
+
+在 common/config/main-local.php  里面配置数据账号和密码。
+
+1、ActiveRecord（活动记录，检查AR类），提供了一套面向对象的接口，用以访问数据库中的数据
+
+1.1、一个AR类关联一张数据表，每个AR对象对应表中的一行；
+
+1.2、AR类的属性，对应为数据库中的列
+
+1.3、可以以面向对象的方式来操纵数据库中的数据，这样就不用谢 sql 语句来实现数据库的访问。
+
+1.4、find() 方法返回一条记录;
+
+	$model = Post::find()->where(['id'=>1])->one();
+	$model = Post::findOne(1);
+	
+1.5、find() 方法返回所有记录;
+
+	$model = Post::find()->where(['status'=>1])->all();
+	$model = Post::findAll(['status'=>1]);
+	
+1.6、ActiveQueryInterface 常用方法:
+	
+	all() 、one()						执行查询，并返回 AR 对象
+
+	orderBy()、andOrderBy()				排序
+	
+	count()								返回符合查询条件的记录数
+	
+	limit()								取出查询结果的条数
+	
+	with()								指定关联表的字段
+	
+	where()、andWhere()、orWhere()		查询条件
+	
+	
+1.7、where() 查询条件的写法：
+	
+					where 参数的写法					sql 语句
+				
+	and			['and','id=1','id=2']				id=1 AND id=2
+	
+	or			['or','id=1','id=2']				id=1 OR id=2
+	
+	in			['in','id',[1,2,3]]					IN(1,2,3)
+	
+	between		['between','id',1,10]				id BETWEEN 1 AND 10
+	
+	like		['like','name',['test','sample']]	name LIKE '%test%' AND name LIKE '%sample%'
+	
+	比较		['>=','id',10]						id >= 10
+	
+	
+1.8、findBySql()
+
+	$sql = "SELECT * FROM post WHERE status = 1";
+	
+	$post = Post::findBySql($sql) -> all();
+
+	
+1.9、CRUD 操作数据
+
+ * AR 提供下面这些方法来实现插入、更新、删除等功能
+ *
+ * 1、yii\db\ActiveRecord::insert()                     // 插入
+ *   e.g.
+ *       $customer = new Customer();
+ *       $customer -> name = 'Carroll';
+ *       $customer -> email = 'Carroll@qq.com'
+ *       $customer -> save();                           // 等同于 $customer -> insert()
+ *
+ * 2、yii\db\ActiveRecord::update()                     // 更新
+ *   e.g.
+ *       $customer = Customer::findOne($id);
+ *       $customer -> email = '123456@qq.com'
+ *       $customer ->save();                            // 等同于 $customer -> update()
+ *
+ * 3、yii\db\ActiveRecord::delete()                     // 删除
+ *    e.g.
+ *       $customer = Customer::findOne($id);
+ *       $customer -> delete();
+ *
+ * 4、yii\db\ActiveRecord::save()                       // 可同时替代 insert() 和 update(),开发中常用 save()方法
+ *
+	
+1.20、 
+ * ActiveRecord 的生命周期
+ *
+ *      方法                             生命周期                               事件
+ *
+ *      new()                1、constructor
+ *                           2、init()                                      EVENT_INIT
+ *
+ *      find()               1、constructor
+ *                           2、init()                                      EVENT_INIT
+ *                           3、afterFind()                                 EVENT_AFTER_FIND
+ *
+ *      save()               1、beforeValidate()                            EVENT_BEFORE_VALIDATE       // beforeValidate() 在数据验证之前执行，如果这个方法执行后的结果为 false,后面的步骤就不会执行。（因此可以在这儿 注入代码、重写方法来控制流程）
+ *                           2、执行数据验证，如通不过，
+ *                              则第三部后面的步骤会被略过
+ *                           3、afterValidate()                             EVENT_AFTER_VALIDATE
+ *                           4、beforeSave()                                EVENT_BEFORE_INSERT or EVENT_BEFORE_UPDATE
+ *                           5、执行数据插入或修改
+ *                           6、afterSave()                                 EVENT_AFTER_INSERT or EVENT_AFTER_UPDATE
+ *
+ *      delete()             1、beforeDelete()                              EVENT_BEFORE_DELETE
+ *                           2、执行数据删除
+ *                           3、afterDelete()                               EVENT_AFTER_DELETE
+ *
+ *      refresh()            1、afterRefresh()                              EVENT_AFTER_REFRESH
+
+ e.g:重写beforeSave() 方法，将数据插入时间和更新时间插入数据库
+ 
+     public function beforeSave($insert){
+	 
+        if(parent::beforeSave($insert)){				// 需要首先继承父类的 beforeSave()
+		
+            if($insert){
+			
+                $this->create_time = time();
+				
+                $this->update_time = time();
+				
+            }else{
+			
+                $this->update_time = time();
+            }
+			
+            return true;
+			
+        }else{
+		
+            return false;
+        }
+    }
+
+	
+	
+三、定义别名（尽量使用别名，方便代码迁移）
+
+ * 1、文件位置： common/config/bootstrap.php 
+ *
+ * 2、别名用来表示文件路径和 URL,目的是避免了在代码中硬编码一些绝对路径和 URL。一个别名必须以 @ 字符开头
+ *
+ * 3、别名的设置
+ * 3.1、用 Yii::setAlias() 方法来设置，例如：
+ *    Yii::setAlias('@foo','/path/to/foo');            // 文件路径的别名
+ *    Yii::setAlias('@bar','http://www.example.com'    // url 的别名
+ *
+ * 4、别名的使用：
+ * $cache = new FileCache([
+ *     'cachePath' => '@runtime/cache',
+ * ]);
+ *
+ * 5、Advanced 版本中已预定义的别名：
+ * @yii     -----     framework directory
+ *
+ * @app     -----     base path of currently running application
+ *
+ * @common  -----     common directory
+ *
+ * @frontend-----     frontend web application directory
+ *
+ * @backend -----     backend web application directory
+ *
+ * @console -----     console directory
+ *
+ * @runtime -----     runtime directory of currently running web application
+ *
+ * @vender  -----     Composer vender directory
+ *
+ * @web     -----     base URL of currently running web application
+ *
+ * @webroot -----     web root directory of currently running web application
+
+ 
+四、配置文件
+
+1、配置文件存放位置：
+	a、common/config
+	b、frontend/config
+	c、backend/config/
+
+2、对同一个配置项赋值时，只会是最终那个值有效，覆盖顺序为：
+	a、fontend或backend/config 覆盖 common/config 中的同一个配置项
+	b、main-local 覆盖 main 的配置项
+	c、params-local 覆盖 params 的配置项
+
+3、一般 local 结尾的文件不嵌入到版本管理系统，也不要上传到生产环境
+
+4、这样架构是便于团队改法，开发成员可以把自己开发的配置放到 local 文件，避免代码冲突
+
+
+
+五、数据库小部件
+
+5.1 、Yii 提供了一套数据库小部件 widgets,这些小部件可以用于显示数据
+
+	  DetailView 小部件用于显示一条记录数据
+	  
+	  ListView 和 GridView 可以用于显示一个拥有分页、排序和过滤功能的列表或者表格
+	  
+5.2、DetailView 用来显示一条记录的详情，以下为一条记录的情况：
+
+	 a、一个Model模型类对象的数据
+	 
+	 b、ActiveRecord 类的一个实例对象
+	 
+	 c、由键值对构成的一个关联数组
+	 
+
+    <?= DetailView::widget([         // 调用 DetailView::widget() 方法
+	
+        'model' => $model,           // model 这里可以是一个模型类的实例，也可以是一个数组
+		
+        'attributes' => [            // attributes 属性决定显示模型的那些属性以及如何格式化
+		
+            'id',
+			
+            'title',
+			
+            'content:ntext',
+			
+            'tags:ntext',
+			
+            ['label'=>'状态',
+			
+             'value'=>$model->status0->name
+			 
+            ],
+			
+			['attribute'=>'author_id',				// 更常用的展示管理表字段的方式
+              'value'=>$model->author->nickname,
+              'label'=>'作者ID',
+            ],
+			
+		    ['attribute'=>'create_time',			// 格式化时间
+              'value'=>date('Y-m-d H:i:s',$model->create_time),	
+            ],
+        ],
+		
+        'template' => '<tr><th style="width: 120px;">{label}</th><td>{value}</td></tr>',			// 'template' 属性调整表格每一行的样式
+        'options' => ['class' => 'table table-striped table-bordered detail-view'],					// 'options' 属性调整真个 table 的样式
+    ]) ?>
+
+
+
+六、数组助手类 ArrayHelper
+
+   1、什么是数组助手类
+   Yii 数组助手类提供了额外的静态方法，让你更高效的处理数组。
+
+   1、获取值(getValue)
+   e.g.
+       class User
+       {
+           public $name = 'Alex';
+       }
+       $array = [
+           'foo' => [
+                'bar' => new User(),ddd
+           ]
+       ]
+    获取 name 的值
+
+    PHP 方法：
+    $value = isset($array['foo']['bar']->name) ? $array['foo']['name'] : null;
+
+    ArrayHelper 方法：
+    $value = ArrayHelper::getValue($array,'foo.bar.name');
+
+
+   2、获取列（getColumn）
+      从多维数组或者对象数组中获取某列的值
+      e.g.
+          $data = [
+              ['id' => '123','data' => 'abc'],      // key 相当于对象的属性名，value 相当于对象的属性值
+              ['id' => '456','data' => 'def'],
+          ]
+
+      ArrayHelper 方法：
+      $ids = ArrayHelper::getColumn($data,'id');
+      结果：['123','456'];
+
+
+   3、建立映射表（map）
+      可以使用 map 方法从一个多维数组或者对象数组中取出数据，建立一个映射表（键值对数组），
+      在 map 方法的参数列表中指定了预构建的映射表的键名和值。
+      e.g.
+          $array = [
+             ['id'=>'123','name'=>'aaa','email'=>'x'],
+             ['id'=>'456','name'=>'bbb','email'=>'y'],
+             ['id'=>'789','name'=>'ccc','email'=>'z'],
+          ]
+      ArrayHelper 方法：
+      $result = ArrayHelper::map($array,'id','name');
+      结果：
+           [
+              '123' => 'aaa'
+              '456' => 'bbb'
+              '789' => 'ccc,
+           ]
+	
+	
+	
+七、查询构造器 QueryBuilder
+
+1、什么是查询构建器
+    查询构建器也是建立在 DAO 基础之上，可让你创建程序化的、DBMS 无关的 sql 语句，并且这样创建的 sql 语句比原生的
+    sql 语句更易读、更安全。
+    e.g.
+        $rows = (new yii\db\Query())        // 以下为构建查询
+              ->select(['id','email'])
+              ->from('user')
+              ->where(['last_name' => 'Carroll])
+              ->orderBy(id)
+              ->limit(10)
+              ->indexBy(id)               // 将 id 作为数组的键
+              ->all();                    // 这就是执行查询
+
+2、使用查询构建器的步骤
+   1、构建查询。创建一个 yii\db\Query 对象来代表一条 SELECT SQL 语句，然后通过调用一套可以串起来的方法，
+     比如 select 方法，from 方法，where 方法等这些方法，构建出可以满足一定要求的查询条件。
+
+     （1）select() 方法
+          A、 使用字符串或者一个数组来指定需要查询的字段
+          a.  $query -> select('id,email');                 // 字符串形式
+          b.  $query -> select(['id','email'])              // 数组形式
+          c.  $query -> select('user.id AS user_id, email') // 还可以是设定字段的别名形式
+          d.  $query -> select(["CONTACT(first_name,' ',last_name) AS full_name",'email'])    //支持 SQL 的表达式
+          e.  支持子查询 。 e.g.
+              有如下查询：
+                          SELECT id,(SELECT COUNT(*) FROM user) AS count FROM post
+              子查询方法为：
+                          $subQuery = (new Query()) -> select('COUNT(*)') -> from('user');
+                          $query = (new Query()) -> select(['id','count' => $subQuery] -> from('post');
+
+         B、 可以调用 yii\db\Query::addSelect() 方法来选取附加字段，e.g.
+             $query -> select(['id','username']) -> addSelect(['email']);     // 如果程序需要执行到某个判断之后才能决定是否需要更多的查询字段，此时使用 addSelect()
+
+         C、 若没有写 select() 方法，就相当于 select(*)
+
+
+     (2) from() 方法
+
+         A、from 方法指定了 SQL 语句当中的 FROM 子句。
+         e.g.
+             SELECT * FROM user
+             $query -> from('user');
+
+         B、from 中的表名可包含数据库前缀，以及表别名。
+            a、$query -> from(['public.user u',public.post p]);   // 包含数据库前缀，   数组形式
+            b、$query -> from('public.user u,public.post p');     // 包含数据库前缀，   字符串形式
+
+         C、可以使用子查询的结果作为表名
+            e.g.
+                SELECT * FROM (SELECT id FROM user WHERE status=1) u
+            子查询方法为：
+                $subQuery = (new Query()) -> select('id') -> from('user') -> where('status=1');
+                $query = (new Query()) -> from(['u'=>$subQuery]);
+
+
+     (3) where() 方法
+         1、字符串格式 'status=1'
+         2、键值对数组格式 ['status' => 1,'type'=>2]
+         3、操作符格式   ['like','name','test']
+            常见的操作符格式写法：
+
+         *    操作符                  where 参数写法                               SQL 语句
+         *
+         *    and                 ['and','id=1','id=2']                          id=1 AND id=2
+         *
+         *    or                  ['or','id=1','id=2']                           id=1 OR id=2
+         *
+         *    in                  ['in','id',[1,2,3]]                            IN(1,2,3)
+         *
+         *    between             ['between','id',1,10]                          id BETWEEN 1 AND 10
+         *
+         *    like                ['like','name',['test','sample']]              name LIKE '%test%' AND name LIKE '%sample%'
+         *
+         *    比较                ['>=','id',10]                                 id >= 10
+
+         要注意 sql 安全问题：
+         e.g.
+             $query -> where('status=$status');
+             一定要写成：
+             $query -> where('status=:status)
+                    -> addParams([':status'=>$status]);
+
+     (4) orderBy() 方法
+         A、 数组形式：
+             $query -> orderBy([
+                  'id' => SORT_ASC,       // 升序
+                  'name' => SORT_DESC,    // 降序
+             ])
+
+         B、字符串形式
+            $query -> orderBy('id ASC,name DESC');
+
+     (5) limit() 和 offset() 方法
+         用来指定 SQL 语句当中的 LIMIT 和 OFFSET 子句的。
+         e.g.
+             ...... limit 10 offset 20
+             $query -> limit(10) -> offset(20)
+
+     (6) groupBy()
+         A、 .....groupBy(['id','status']);
+             $query -> groupBy(['id','status']);
+
+         B、可以调用 addGroupBy()来为 groupBy子句添加额外的字段
+            $query -> addGroupBy('age')
+
+     (7) having()
+         A、 ...... HAVING status = 1
+             $query -> having(['status' => 1]);
+
+         B、可以调用 andHaving() 或 orHaving() 方法来为 HAVING 子句追加额外的条件
+            e.g.
+                HAVING(status = 1) AND (age > 30)
+                $query -> having(['status' => 1]) -> andHaving(['>','age',30);
+
+     (8) join()
+        A、 ..... LEFT JOIN post ON post.user_id = user.id
+          $query -> join('LEFT JOIN','post','post.user_id = user.id');    // 依次为：关联类型，关联的表名，关联条件，后面还可以接可选参数 $params [与连接条件绑定的参数]
+
+     （9）union()
+          用来指定 SQL 语句当中的 UNION 子句的
+          e.g.
+              $query1 = (new yii\db\query())
+                    ->select('id, category_id AS type，name')
+                    ->from('post')
+                    ->limit(10);
+
+              $query2 = (new yii\db\query())
+                    ->select('id, type，name')
+                    ->from('user')
+                    ->limit(10);
+
+              $query1 -> union($query2);
+
+     (10) indexBy 索引查询结果
+          挡在调用 all() 方法时，它将返回一个以连续的整数值为索引的数组。而有时候希望使用一个特定的字段或者表达式的值
+          来作为索引结果集数组，那么在调用 yii\db\Query::all() 之前使用 yii\db\Query::indexBy() 方法来达到这个目的。
+
+3、执行查询。执行 yii\db\Query 的一个查询方法从数据库当中检索数据。比如 all(),one(),column()等这些查询方法。
+
+     yii\db\Query 提供了一套用于不同查询目的的方法:
+
+     all()              返回一个由行组成的数组，每一行是一个由名称和值构成的关联数组
+     one()              返回结果集的第一行
+     column()           返回结果集的第一列
+     scalar()           返回结果集的第一行第一列的标量值
+     exists()           返回一个表示该查询是否包含结果集的值
+     count()            返回 COUNT 查询的结果
+     sum()              返回指定列的和值
+     average()          返回指定列的平均值
+     max()              返回指定列的最大值
+     min()              返回制定列的最小值
+
+
+4、数据库查询总结
+
+         查询方式                    构建查询                              返回值（all, one 方法）
+
+      Command 对象                   SQL 语句                               数组
+
+      AR 的 findBySql 方法           SQL 语句                               对象
+
+      Query 对象                     查询构建器                             数组
+                                     1、可程序化构建
+                                     2、DBMS无关
+                                     3、易读
+                                     4、更安全
+
+      AR 的 find 方法                查询构建器                              对象
+                                     1、可程序化构建
+                                     2、DBMS无关
+                                     3、易读
+                                     4、更安全
+									 
+									 
+									 
+
+4.8
+
+
+ 
