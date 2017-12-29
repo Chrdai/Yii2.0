@@ -1,0 +1,7 @@
+advanced 版本相对于 basic 版本的增强：
+
+1、前后台分离（backend and frontedn apps）
+
+2、建好了基于数据库连接的用户模型，实现了对这个用户模型的认证  (Ready to use User model)
+
+3、写好了注册、重置密码等功能 (User signup and password restore)

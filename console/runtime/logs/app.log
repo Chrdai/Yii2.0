@@ -1,0 +1,541 @@
+2017-12-28 10:41:11 [-][-][-][error][yii\db\Exception] exception 'PDOException' with message 'SQLSTATE[HY000] [1049] Unknown database 'blogdemo2db'' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php:600
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php(600): PDO->__construct('mysql:host=loca...', 'root', '', NULL)
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php(542): yii\db\Connection->createPdoInstance()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php(861): yii\db\Connection->open()
+#3 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php(848): yii\db\Connection->getMasterPdo()
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Command.php(219): yii\db\Connection->getSlavePdo()
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Command.php(894): yii\db\Command->prepare(true)
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Command.php(362): yii\db\Command->queryInternal('fetchAll', NULL)
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\mysql\Schema.php(198): yii\db\Command->queryAll()
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\mysql\Schema.php(97): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Schema.php(149): yii\db\mysql\Schema->loadTableSchema('migration')
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\MigrateController.php(178): yii\db\Schema->getTableSchema('{{%migration}}', true)
+#11 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(627): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#12 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(102): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#13 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#14 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#15 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#16 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#17 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#18 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#19 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#20 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#21 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#22 {main}
+
+Next exception 'yii\db\Exception' with message 'SQLSTATE[HY000] [1049] Unknown database 'blogdemo2db'' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php:547
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php(861): yii\db\Connection->open()
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Connection.php(848): yii\db\Connection->getMasterPdo()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Command.php(219): yii\db\Connection->getSlavePdo()
+#3 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Command.php(894): yii\db\Command->prepare(true)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Command.php(362): yii\db\Command->queryInternal('fetchAll', NULL)
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\mysql\Schema.php(198): yii\db\Command->queryAll()
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\mysql\Schema.php(97): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\db\Schema.php(149): yii\db\mysql\Schema->loadTableSchema('migration')
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\MigrateController.php(178): yii\db\Schema->getTableSchema('{{%migration}}', true)
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(627): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(102): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#11 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#12 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#13 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#14 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#15 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#16 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#17 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#18 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#19 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#20 {main}
+Additional Information:
+
+2017-12-28 10:41:10 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514457670.7538
+    'REQUEST_TIME' => 1514457670
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate'
+        2 => '--migrationPath=@yii/rbac/migrations'
+    ]
+    'argc' => 3
+]
+2017-12-28 10:45:41 [-][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'You should configure "authManager" component to use database before executing this migration.' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php:27
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php(45): m140506_102106_rbac_init->getAuthManager()
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(509): m140506_102106_rbac_init->up()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(130): yii\console\controllers\BaseMigrateController->migrateUp('m140506_102106_...')
+#3 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#11 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#12 {main}
+2017-12-28 10:44:58 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514457898.6878
+    'REQUEST_TIME' => 1514457898
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate'
+        2 => '--migrationPath=@yii/rbac/migrations'
+    ]
+    'argc' => 3
+]
+2017-12-28 10:46:08 [-][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'You should configure "authManager" component to use database before executing this migration.' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php:27
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php(45): m140506_102106_rbac_init->getAuthManager()
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(509): m140506_102106_rbac_init->up()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(130): yii\console\controllers\BaseMigrateController->migrateUp('m140506_102106_...')
+#3 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#11 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#12 {main}
+2017-12-28 10:46:06 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514457966.2507
+    'REQUEST_TIME' => 1514457966
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate'
+        2 => '--migrationPath=@yii/rbac/migrations'
+    ]
+    'argc' => 3
+]
+2017-12-28 10:53:32 [-][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'You should configure "authManager" component to use database before executing this migration.' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php:27
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php(45): m140506_102106_rbac_init->getAuthManager()
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(509): m140506_102106_rbac_init->up()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(130): yii\console\controllers\BaseMigrateController->migrateUp('m140506_102106_...')
+#3 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#11 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#12 {main}
+2017-12-28 10:53:28 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514458408.919
+    'REQUEST_TIME' => 1514458408
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate'
+        2 => '--migrationPath=@yii/rbac/migrations'
+    ]
+    'argc' => 3
+]
+2017-12-28 10:55:36 [-][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'You should configure "authManager" component to use database before executing this migration.' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php:27
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php(45): m140506_102106_rbac_init->getAuthManager()
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(509): m140506_102106_rbac_init->up()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(130): yii\console\controllers\BaseMigrateController->migrateUp('m140506_102106_...')
+#3 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#11 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#12 {main}
+2017-12-28 10:55:26 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514458526.2687
+    'REQUEST_TIME' => 1514458526
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate'
+        2 => '--migrationPath=@yii/rbac/migrations'
+    ]
+    'argc' => 3
+]
+2017-12-28 10:56:45 [-][-][-][error][yii\console\Exception] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request: migrate/creat' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php:125
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('creat', Array)
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('creat', Array)
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate/creat', Array)
+#3 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate/creat', Array)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#5 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#6 {main}
+
+Next exception 'yii\console\Exception' with message 'Unknown command "migrate/creat".' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php:179
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate/creat', Array)
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#2 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#3 {main}
+2017-12-28 10:56:45 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514458605.0532
+    'REQUEST_TIME' => 1514458605
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate/creat'
+        2 => 'ere'
+    ]
+    'argc' => 3
+]
+2017-12-28 11:00:50 [-][-][-][error][yii\base\InvalidConfigException] exception 'yii\base\InvalidConfigException' with message 'You should configure "authManager" component to use database before executing this migration.' in D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php:27
+Stack trace:
+#0 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\rbac\migrations\m140506_102106_rbac_init.php(45): m140506_102106_rbac_init->getAuthManager()
+#1 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(509): m140506_102106_rbac_init->up()
+#2 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(130): yii\console\controllers\BaseMigrateController->migrateUp('m140506_102106_...')
+#3 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#4 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#5 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Controller.php(119): yii\base\Controller->runAction('', Array)
+#7 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Module.php(454): yii\console\Controller->runAction('', Array)
+#8 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(176): yii\base\Module->runAction('migrate', Array)
+#9 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\console\Application.php(143): yii\console\Application->runAction('migrate', Array)
+#10 D:\wamp64\www\blogdemo2\vendor\yiisoft\yii2\base\Application.php(375): yii\console\Application->handleRequest(Object(yii\console\Request))
+#11 D:\wamp64\www\blogdemo2\yii(27): yii\base\Application->run()
+#12 {main}
+2017-12-28 11:00:48 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'asl_log' => 'Destination=file'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'MOZ_PLUGIN_PATH' => 'D:\\FOXIT READER\\plugins\\'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;E:\\Program\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;E:\\xampp\\php;E:\\xampp\\htdocs\\basic\\vendor\\bin;E:\\soft\\开发\\cmder;C:\\Program Files\\OpenVPN\\bin;D:\\TortoiseSVN\\bin;D:\\wamp64\\bin\\php\\php5.6.25;D:\\wamp64\\bin\\php\\php5.6.25'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'D:\\wamp64\\www\\blogdemo2\\'
+    'PHP_SELF' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_NAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'SCRIPT_FILENAME' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'PATH_TRANSLATED' => 'D:\\wamp64\\www\\blogdemo2\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1514458848.8592
+    'REQUEST_TIME' => 1514458848
+    'argv' => [
+        0 => 'D:\\wamp64\\www\\blogdemo2\\yii'
+        1 => 'migrate'
+        2 => '--migrationPath=@yii/rbac/migrations'
+    ]
+    'argc' => 3
+]
